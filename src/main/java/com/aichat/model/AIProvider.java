@@ -8,7 +8,7 @@ public enum AIProvider {
     ANTHROPIC("anthropic", "Anthropic", "claude-haiku-4-5",
             List.of("claude-sonnet-4-5", "claude-haiku-4-5")),
     GEMINI("gemini", "Google Gemini", "gemini-2.0-flash",
-            List.of("gemini-2.0-flash", "gemini-1.5-pro", "gemini-1.5-flash"));
+            List.of("gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash", "gemini-1.5-pro", "gemini-1.5-flash"));
 
     private final String id;
     private final String displayName;
