@@ -1,6 +1,7 @@
 plugins {
     `java-library`
     id("xyz.jpenilla.run-paper") version "3.0.2"
+    id("com.gradleup.shadow") version "9.3.1"
 }
 
 group = property("group") as String
@@ -22,6 +23,7 @@ repositories {
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
     compileOnly("com.google.code.gson:gson:2.11.0")
+    implementation("org.bstats:bstats-bukkit:3.1.0")
 }
 
 tasks {
@@ -41,8 +43,20 @@ tasks {
         }
     }
 
-    jar {
+    shadowJar {
         archiveBaseName = "AskAI"
+        archiveClassifier = ""
+        configurations = project.configurations.runtimeClasspath.map { setOf(it) }
+
+        dependencies {
+            exclude { it.moduleGroup != "org.bstats" }
+        }
+
+        relocate("org.bstats", project.group.toString())
+    }
+
+    build {
+        dependsOn(shadowJar)
     }
 
     runServer {

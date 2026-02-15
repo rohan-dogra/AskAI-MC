@@ -8,6 +8,7 @@ import com.askai.storage.DatabaseManager;
 import com.askai.storage.UserSettingsRepository;
 import com.askai.util.RateLimiter;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -70,6 +71,9 @@ public final class AskAI extends JavaPlugin implements Listener {
 
         //register event listeners (key redaction, cleanup)
         getServer().getPluginManager().registerEvents(this, this);
+
+        //bStats metrics
+        new Metrics(this, 29560);
 
         getLogger().info("AskAI enabled.");
     }
