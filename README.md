@@ -10,7 +10,7 @@ On 'player' mode, each player picks a provider and model, sends messages with `/
 
 ## Installation
 
-1. Download the latest JAR from [Releases](https://github.com/rohan-dogra/AskAI/releases)
+1. Download the latest JAR from [Releases](https://github.com/rohan-dogra/AskAI-MC/releases)
 2. Drop it into your server's `plugins/` folder
 3. Restart the server
 4. Edit `plugins/AskAI/config.yml` — at minimum, change the `encryption.seed` to a random string
