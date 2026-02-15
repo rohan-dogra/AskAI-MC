@@ -2,7 +2,7 @@
 
 ![GitHub Release](https://img.shields.io/github/v/release/rohan-dogra/AskAI-MC?label=version) ![bStats Servers](https://img.shields.io/bstats/servers/29560)
 
-A PaperMC plugin that lets players chat with AI providers in-game. Supports OpenAI, Anthropic, and Google Gemini.
+A PaperMC plugin that lets players chat with AI models in-game. Supports OpenAI, Anthropic, and Google Gemini.
 
 On 'player' mode, each player picks a provider and model, sends messages with `/chat`, and gets private AI responses. On 'server' mode, the server sets a single API key and model for all players.
 
