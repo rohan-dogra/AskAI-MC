@@ -72,6 +72,43 @@ public final class TextFormatter {
         return status;
     }
 
+    public static Component formatServerStatus(UserSettings playerSettings, UserSettings serverSettings) {
+        AIProvider active = playerSettings.activeProvider();
+        Component status = Component.text("--- AIChat Status ---").color(NamedTextColor.GOLD)
+                .decoration(TextDecoration.BOLD, true)
+                .append(Component.newline());
+
+        status = status.append(Component.text("Key mode: ").color(NamedTextColor.GRAY)
+                .decoration(TextDecoration.BOLD, false)
+                .append(Component.text("Server (shared keys)").color(NamedTextColor.YELLOW)))
+                .append(Component.newline());
+
+        status = status.append(Component.text("Active provider: ").color(NamedTextColor.GRAY)
+                .append(Component.text(active.displayName()).color(providerColor(active))))
+                .append(Component.newline());
+
+        status = status.append(Component.text("Active model: ").color(NamedTextColor.GRAY)
+                .append(Component.text(playerSettings.getModel(active)).color(NamedTextColor.WHITE)))
+                .append(Component.newline());
+
+        status = status.append(Component.newline())
+                .append(Component.text("Server keys:").color(NamedTextColor.GRAY))
+                .append(Component.newline());
+
+        for (AIProvider provider : AIProvider.values()) {
+            boolean hasKey = serverSettings.hasKey(provider);
+            Component keyStatus = hasKey
+                    ? Component.text(" [SET]").color(NamedTextColor.GREEN)
+                    : Component.text(" [NOT SET]").color(NamedTextColor.RED);
+            status = status.append(Component.text("  " + provider.displayName()).color(providerColor(provider)))
+                    .append(keyStatus)
+                    .append(Component.text(" | model: " + playerSettings.getModel(provider)).color(NamedTextColor.GRAY))
+                    .append(Component.newline());
+        }
+
+        return status;
+    }
+
     private static NamedTextColor providerColor(AIProvider provider) {
         return switch (provider) {
             case OPENAI -> NamedTextColor.GREEN;

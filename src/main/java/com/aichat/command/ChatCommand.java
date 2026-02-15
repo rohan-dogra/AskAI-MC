@@ -24,6 +24,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public final class ChatCommand {
+    private static final UUID SERVER_UUID = new UUID(0L, 0L);
     private final AIChat plugin;
 
     public ChatCommand(AIChat plugin) {
@@ -36,7 +37,9 @@ public final class ChatCommand {
                         .requires(src -> src.getSender().hasPermission("aichat.use"))
                         // /chat setkey <provider> <key>
                         .then(Commands.literal("setkey")
-                                .requires(src -> src.getSender().hasPermission("aichat.setkey"))
+                                .requires(src -> plugin.getPluginConfig().isServerKeyMode()
+                                        ? src.getSender().hasPermission("aichat.admin")
+                                        : src.getSender().hasPermission("aichat.setkey"))
                                 .then(Commands.argument("provider", StringArgumentType.word())
                                         .suggests(this::suggestProviders)
                                         .then(Commands.argument("key", StringArgumentType.greedyString())
@@ -94,19 +97,33 @@ public final class ChatCommand {
 
         player.sendMessage(TextFormatter.thinking());
 
+        boolean serverMode = plugin.getPluginConfig().isServerKeyMode();
+
         //run everything async
         CompletableFuture.runAsync(() -> {
             try {
                 UserSettings settings = plugin.getSettingsRepo().load(playerId);
                 AIProvider provider = settings.activeProvider();
 
-                //check key
-                String encryptedKey = settings.getEncryptedKey(provider);
-                if (encryptedKey == null) {
-                    runSync(() -> player.sendMessage(TextFormatter.error(
-                            "No API key set for " + provider.displayName()
-                                    + ". Use: /chat setkey " + provider.id() + " <your-key>")));
-                    return;
+                //resolve key based on mode
+                String encryptedKey;
+                if (serverMode) {
+                    UserSettings serverSettings = plugin.getSettingsRepo().load(SERVER_UUID);
+                    encryptedKey = serverSettings.getEncryptedKey(provider);
+                    if (encryptedKey == null) {
+                        runSync(() -> player.sendMessage(TextFormatter.error(
+                                "No server API key set for " + provider.displayName()
+                                        + ". Ask an admin to set it.")));
+                        return;
+                    }
+                } else {
+                    encryptedKey = settings.getEncryptedKey(provider);
+                    if (encryptedKey == null) {
+                        runSync(() -> player.sendMessage(TextFormatter.error(
+                                "No API key set for " + provider.displayName()
+                                        + ". Use: /chat setkey " + provider.id() + " <your-key>")));
+                        return;
+                    }
                 }
 
                 String apiKey = plugin.getKeyEncryptor().decrypt(encryptedKey);
@@ -150,6 +167,12 @@ public final class ChatCommand {
             return 0;
         }
 
+        boolean serverMode = plugin.getPluginConfig().isServerKeyMode();
+        if (serverMode && !player.hasPermission("aichat.admin")) {
+            player.sendMessage(TextFormatter.error("Server-key mode is active. Only admins can set API keys."));
+            return 0;
+        }
+
         String providerStr = StringArgumentType.getString(ctx, "provider");
         String key = StringArgumentType.getString(ctx, "key");
 
@@ -164,13 +187,17 @@ public final class ChatCommand {
             return 0;
         }
 
+        UUID targetId = serverMode ? SERVER_UUID : player.getUniqueId();
+
         CompletableFuture.runAsync(() -> {
             try {
                 String encrypted = plugin.getKeyEncryptor().encrypt(key);
-                plugin.getSettingsRepo().setEncryptedKey(player.getUniqueId(), provider, encrypted);
+                plugin.getSettingsRepo().setEncryptedKey(targetId, provider, encrypted);
 
-                runSync(() -> player.sendMessage(TextFormatter.success(
-                        provider.displayName() + " API key set.")));
+                String successMsg = serverMode
+                        ? provider.displayName() + " server API key set."
+                        : provider.displayName() + " API key set.";
+                runSync(() -> player.sendMessage(TextFormatter.success(successMsg)));
             } catch (Exception e) {
                 String safeMsg = sanitize(e.getMessage());
                 plugin.getLogger().warning("Failed to save key for " + player.getName() + ": " + safeMsg);
@@ -249,10 +276,18 @@ public final class ChatCommand {
             return 0;
         }
 
+        boolean serverMode = plugin.getPluginConfig().isServerKeyMode();
+
         CompletableFuture.runAsync(() -> {
             try {
-                UserSettings settings = plugin.getSettingsRepo().load(player.getUniqueId());
-                runSync(() -> player.sendMessage(TextFormatter.formatStatus(settings)));
+                UserSettings playerSettings = plugin.getSettingsRepo().load(player.getUniqueId());
+                if (serverMode) {
+                    UserSettings serverSettings = plugin.getSettingsRepo().load(SERVER_UUID);
+                    runSync(() -> player.sendMessage(
+                            TextFormatter.formatServerStatus(playerSettings, serverSettings)));
+                } else {
+                    runSync(() -> player.sendMessage(TextFormatter.formatStatus(playerSettings)));
+                }
             } catch (Exception e) {
                 runSync(() -> player.sendMessage(TextFormatter.error("Failed to load settings.")));
             }

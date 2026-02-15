@@ -12,5 +12,5 @@ permissions:
     description: "Manage API keys with /chat setkey"
     default: true
   aichat.admin:
-    description: "Admin commands (reload, view stats)"
+    description: "Manage server-wide API keys in server-key mode"
     default: op

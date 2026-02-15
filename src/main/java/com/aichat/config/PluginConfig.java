@@ -14,6 +14,10 @@ public final class PluginConfig {
         this.config = config;
     }
 
+    public boolean isServerKeyMode() {
+        return "server".equalsIgnoreCase(config.getString("key-mode", "player"));
+    }
+
     public String getEncryptionSeed() {
         return config.getString("encryption.seed", "CHANGE-ME-use-a-long-random-string-here");
     }

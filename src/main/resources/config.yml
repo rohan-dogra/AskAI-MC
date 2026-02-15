@@ -6,6 +6,9 @@
 encryption:
   seed: "CHANGE-ME-use-a-long-random-string-here"
 
+# Key mode: "player" (each player sets own API keys) or "server" (admin sets shared keys for all players)
+key-mode: "player"
+
 # Rate limiting per player
 rate-limit:
   requests: 10
