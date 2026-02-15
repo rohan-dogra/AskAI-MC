@@ -15,6 +15,7 @@ build/
 Thumbs.db
 
 #runtime data (generated on server)
+run/
 plugins/
 *.db
 .salt
