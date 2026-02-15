@@ -36,7 +36,7 @@ public final class PluginConfig {
 
     public String getSystemPrompt() {
         return config.getString("system-prompt",
-                "You are a helpful assistant in a Minecraft server. Keep responses concise and relevant.");
+                "You are a helpful assistant in a Minecraft server. Keep responses concise and relevant. Responses should be clear and concise, not be overly detailed. At the end of the reponse, don't ask the user for more questions or information, just respond accurately, in short.");
     }
 
     public Set<AIProvider> getAllowedProviders() {
