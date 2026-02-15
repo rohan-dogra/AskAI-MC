@@ -40,8 +40,7 @@ public final class OpenAIClient implements AIProviderClient {
     private String buildRequestJson(AIRequest request) {
         JsonObject root = new JsonObject();
         root.addProperty("model", request.model());
-        root.addProperty("max_tokens", request.maxTokens());
-        root.addProperty("temperature", request.temperature());
+        root.addProperty("max_completion_tokens", request.maxTokens());
 
         JsonArray messages = new JsonArray();
 
