@@ -125,12 +125,19 @@ public final class ChatCommand {
 
                 runSync(() -> player.sendMessage(TextFormatter.formatResponse(provider, response)));
 
-            } catch (AIProviderException e) {
-                runSync(() -> player.sendMessage(TextFormatter.error(e.getMessage())));
             } catch (Exception e) {
-                String safeMsg = sanitize(e.getMessage());
-                plugin.getLogger().warning("AI request failed for " + player.getName() + ": " + safeMsg);
-                runSync(() -> player.sendMessage(TextFormatter.error("Request failed: " + safeMsg)));
+                //CompletableFuture.join() wraps exceptions in CompletionException
+                Throwable cause = e;
+                while (cause.getCause() != null && cause instanceof java.util.concurrent.CompletionException) {
+                    cause = cause.getCause();
+                }
+                String msg = cause instanceof AIProviderException
+                        ? cause.getMessage()
+                        : "Request failed: " + sanitize(cause.getMessage());
+                plugin.getLogger().warning("AI request failed for " + player.getName() + ": " + sanitize(cause.getMessage()));
+                Throwable finalCause = cause;
+                runSync(() -> player.sendMessage(TextFormatter.error(
+                        finalCause instanceof AIProviderException ? finalCause.getMessage() : "Request failed: " + sanitize(finalCause.getMessage()))));
             }
         });
 

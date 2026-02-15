@@ -82,15 +82,13 @@ public final class AIChat extends JavaPlugin implements Listener {
         getLogger().info("AIChat disabled.");
     }
 
-    //redact API keys from /chat setkey commands before they can be logged
-    @EventHandler
+    //cancel /chat setkey commands from being logged by other plugins
+    @EventHandler(priority = org.bukkit.event.EventPriority.MONITOR)
     public void onCommandPreprocess(PlayerCommandPreprocessEvent event) {
         String msg = event.getMessage().toLowerCase();
         if (msg.startsWith("/chat setkey ")) {
-            String[] parts = event.getMessage().split(" ", 4);
-            if (parts.length >= 4) {
-                event.setMessage(parts[0] + " " + parts[1] + " " + parts[2] + " ***REDACTED***");
-            }
+            //log a safe version ourselves. the actual command still reaches Brigadier unmodified
+            getLogger().info(event.getPlayer().getName() + " set an API key (redacted from logs)");
         }
     }
 
