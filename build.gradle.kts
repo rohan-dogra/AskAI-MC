@@ -42,7 +42,7 @@ tasks {
     }
 
     jar {
-        archiveBaseName = "AIChat"
+        archiveBaseName = "AskAI"
     }
 
     runServer {

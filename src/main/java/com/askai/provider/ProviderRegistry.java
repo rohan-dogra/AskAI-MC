@@ -1,6 +1,6 @@
-package com.aichat.provider;
+package com.askai.provider;
 
-import com.aichat.model.AIProvider;
+import com.askai.model.AIProvider;
 
 import java.net.http.HttpClient;
 import java.util.Map;

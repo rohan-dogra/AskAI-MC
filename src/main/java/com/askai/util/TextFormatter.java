@@ -1,8 +1,8 @@
-package com.aichat.util;
+package com.askai.util;
 
-import com.aichat.model.AIProvider;
-import com.aichat.model.AIResponse;
-import com.aichat.model.UserSettings;
+import com.askai.model.AIProvider;
+import com.askai.model.AIResponse;
+import com.askai.model.UserSettings;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -41,7 +41,7 @@ public final class TextFormatter {
 
     public static Component formatStatus(UserSettings settings) {
         AIProvider active = settings.activeProvider();
-        Component status = Component.text("--- AIChat Status ---").color(NamedTextColor.GOLD)
+        Component status = Component.text("--- AskAI Status ---").color(NamedTextColor.GOLD)
                 .decoration(TextDecoration.BOLD, true)
                 .append(Component.newline());
 
@@ -74,7 +74,7 @@ public final class TextFormatter {
 
     public static Component formatServerStatus(UserSettings playerSettings, UserSettings serverSettings) {
         AIProvider active = playerSettings.activeProvider();
-        Component status = Component.text("--- AIChat Status ---").color(NamedTextColor.GOLD)
+        Component status = Component.text("--- AskAI Status ---").color(NamedTextColor.GOLD)
                 .decoration(TextDecoration.BOLD, true)
                 .append(Component.newline());
 

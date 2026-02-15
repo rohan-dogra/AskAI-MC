@@ -1,4 +1,4 @@
-package com.aichat.crypto;
+package com.askai.crypto;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;

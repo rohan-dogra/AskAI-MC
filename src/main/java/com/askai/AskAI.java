@@ -1,12 +1,12 @@
-package com.aichat;
+package com.askai;
 
-import com.aichat.command.ChatCommand;
-import com.aichat.config.PluginConfig;
-import com.aichat.crypto.KeyEncryptor;
-import com.aichat.provider.ProviderRegistry;
-import com.aichat.storage.DatabaseManager;
-import com.aichat.storage.UserSettingsRepository;
-import com.aichat.util.RateLimiter;
+import com.askai.command.ChatCommand;
+import com.askai.config.PluginConfig;
+import com.askai.crypto.KeyEncryptor;
+import com.askai.provider.ProviderRegistry;
+import com.askai.storage.DatabaseManager;
+import com.askai.storage.UserSettingsRepository;
+import com.askai.util.RateLimiter;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.util.concurrent.Executors;
 
-public final class AIChat extends JavaPlugin implements Listener {
+public final class AskAI extends JavaPlugin implements Listener {
     private PluginConfig pluginConfig;
     private KeyEncryptor keyEncryptor;
     private DatabaseManager databaseManager;
@@ -71,7 +71,7 @@ public final class AIChat extends JavaPlugin implements Listener {
         //register event listeners (key redaction, cleanup)
         getServer().getPluginManager().registerEvents(this, this);
 
-        getLogger().info("AIChat enabled.");
+        getLogger().info("AskAI enabled.");
     }
 
     @Override
@@ -79,7 +79,7 @@ public final class AIChat extends JavaPlugin implements Listener {
         if (databaseManager != null) {
             databaseManager.close();
         }
-        getLogger().info("AIChat disabled.");
+        getLogger().info("AskAI disabled.");
     }
 
     //cancel /chat setkey commands from being logged by other plugins

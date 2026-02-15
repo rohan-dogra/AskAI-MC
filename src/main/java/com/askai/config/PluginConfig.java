@@ -1,6 +1,6 @@
-package com.aichat.config;
+package com.askai.config;
 
-import com.aichat.model.AIProvider;
+import com.askai.model.AIProvider;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;

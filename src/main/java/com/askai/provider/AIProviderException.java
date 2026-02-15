@@ -1,4 +1,4 @@
-package com.aichat.provider;
+package com.askai.provider;
 
 public class AIProviderException extends RuntimeException {
     public AIProviderException(String message) {

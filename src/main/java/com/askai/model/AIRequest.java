@@ -1,4 +1,4 @@
-package com.aichat.model;
+package com.askai.model;
 
 import java.util.List;
 

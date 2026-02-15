@@ -1,4 +1,4 @@
-package com.aichat.storage;
+package com.askai.storage;
 
 import java.nio.file.Path;
 import java.sql.Connection;
@@ -19,7 +19,7 @@ public final class DatabaseManager {
 
     public void initialize() throws SQLException {
         dataFolder.toFile().mkdirs();
-        String url = "jdbc:sqlite:" + dataFolder.resolve("aichat.db");
+        String url = "jdbc:sqlite:" + dataFolder.resolve("askai.db");
         this.connection = DriverManager.getConnection(url);
 
         try (Statement stmt = connection.createStatement()) {

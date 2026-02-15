@@ -1,14 +1,14 @@
-package com.aichat.command;
+package com.askai.command;
 
-import com.aichat.AIChat;
-import com.aichat.model.AIProvider;
-import com.aichat.model.AIRequest;
-import com.aichat.model.AIResponse;
-import com.aichat.model.ChatMessage;
-import com.aichat.model.UserSettings;
-import com.aichat.provider.AIProviderClient;
-import com.aichat.provider.AIProviderException;
-import com.aichat.util.TextFormatter;
+import com.askai.AskAI;
+import com.askai.model.AIProvider;
+import com.askai.model.AIRequest;
+import com.askai.model.AIResponse;
+import com.askai.model.ChatMessage;
+import com.askai.model.UserSettings;
+import com.askai.provider.AIProviderClient;
+import com.askai.provider.AIProviderException;
+import com.askai.util.TextFormatter;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -25,28 +25,28 @@ import java.util.concurrent.CompletableFuture;
 
 public final class ChatCommand {
     private static final UUID SERVER_UUID = new UUID(0L, 0L);
-    private final AIChat plugin;
+    private final AskAI plugin;
 
-    public ChatCommand(AIChat plugin) {
+    public ChatCommand(AskAI plugin) {
         this.plugin = plugin;
     }
 
     public void register(Commands commands) {
         commands.register(
                 Commands.literal("chat")
-                        .requires(src -> src.getSender().hasPermission("aichat.use"))
+                        .requires(src -> src.getSender().hasPermission("askai.use"))
                         // /chat setkey <provider> <key>
                         .then(Commands.literal("setkey")
                                 .requires(src -> plugin.getPluginConfig().isServerKeyMode()
-                                        ? src.getSender().hasPermission("aichat.admin")
-                                        : src.getSender().hasPermission("aichat.setkey"))
+                                        ? src.getSender().hasPermission("askai.admin")
+                                        : src.getSender().hasPermission("askai.setkey"))
                                 .then(Commands.argument("provider", StringArgumentType.word())
                                         .suggests(this::suggestProviders)
                                         .then(Commands.argument("key", StringArgumentType.greedyString())
                                                 .executes(this::handleSetKey))))
                         // /chat setmodel <provider> <model>
                         .then(Commands.literal("setmodel")
-                                .requires(src -> src.getSender().hasPermission("aichat.setkey"))
+                                .requires(src -> src.getSender().hasPermission("askai.setkey"))
                                 .then(Commands.argument("provider", StringArgumentType.word())
                                         .suggests(this::suggestProviders)
                                         .then(Commands.argument("model", StringArgumentType.word())
@@ -54,7 +54,7 @@ public final class ChatCommand {
                                                 .executes(this::handleSetModel))))
                         // /chat provider <provider>
                         .then(Commands.literal("provider")
-                                .requires(src -> src.getSender().hasPermission("aichat.setkey"))
+                                .requires(src -> src.getSender().hasPermission("askai.setkey"))
                                 .then(Commands.argument("provider", StringArgumentType.word())
                                         .suggests(this::suggestProviders)
                                         .executes(this::handleSetProvider)))
@@ -168,7 +168,7 @@ public final class ChatCommand {
         }
 
         boolean serverMode = plugin.getPluginConfig().isServerKeyMode();
-        if (serverMode && !player.hasPermission("aichat.admin")) {
+        if (serverMode && !player.hasPermission("askai.admin")) {
             player.sendMessage(TextFormatter.error("Server-key mode is active. Only admins can set API keys."));
             return 0;
         }

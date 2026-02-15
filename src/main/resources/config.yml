@@ -1,4 +1,4 @@
-# AIChat Configuration
+# AskAI Configuration
 
 # Encryption seed for API key storage. CHANGE THIS to a unique random string.
 # If you change this after players have set keys, their keys will become unreadable

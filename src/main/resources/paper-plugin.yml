@@ -1,16 +1,16 @@
-name: AIChat
+name: AskAI
 version: "${version}"
-main: com.aichat.AIChat
+main: com.askai.AskAI
 description: "${description}"
-api-version: "1.21.11"
+api-version: "1.20.6"
 
 permissions:
-  aichat.use:
+  askai.use:
     description: "Send messages to AI providers with /chat"
     default: true
-  aichat.setkey:
+  askai.setkey:
     description: "Manage API keys with /chat setkey"
     default: true
-  aichat.admin:
+  askai.admin:
     description: "Manage server-wide API keys in server-key mode"
     default: op

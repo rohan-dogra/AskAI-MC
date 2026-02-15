@@ -1,7 +1,7 @@
-package com.aichat.storage;
+package com.askai.storage;
 
-import com.aichat.model.AIProvider;
-import com.aichat.model.UserSettings;
+import com.askai.model.AIProvider;
+import com.askai.model.UserSettings;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

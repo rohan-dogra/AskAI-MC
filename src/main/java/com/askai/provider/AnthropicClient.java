@@ -1,8 +1,8 @@
-package com.aichat.provider;
+package com.askai.provider;
 
-import com.aichat.model.AIRequest;
-import com.aichat.model.AIResponse;
-import com.aichat.model.ChatMessage;
+import com.askai.model.AIRequest;
+import com.askai.model.AIResponse;
+import com.askai.model.ChatMessage;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

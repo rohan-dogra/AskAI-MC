@@ -1,7 +1,7 @@
-package com.aichat.provider;
+package com.askai.provider;
 
-import com.aichat.model.AIRequest;
-import com.aichat.model.AIResponse;
+import com.askai.model.AIRequest;
+import com.askai.model.AIResponse;
 
 import java.util.concurrent.CompletableFuture;
 

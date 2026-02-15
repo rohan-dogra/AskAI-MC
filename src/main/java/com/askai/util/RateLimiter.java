@@ -1,4 +1,4 @@
-package com.aichat.util;
+package com.askai.util;
 
 import java.util.Deque;
 import java.util.UUID;
