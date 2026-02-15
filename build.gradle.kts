@@ -1,5 +1,6 @@
 plugins {
     `java-library`
+    id("xyz.jpenilla.run-paper") version "3.0.2"
 }
 
 group = property("group") as String
@@ -42,5 +43,9 @@ tasks {
 
     jar {
         archiveBaseName = "AIChat"
+    }
+
+    runServer {
+        minecraftVersion("1.21.11")
     }
 }
