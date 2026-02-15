@@ -13,6 +13,7 @@ build/
 
 .DS_Store
 Thumbs.db
+bin/
 
 #runtime data (generated on server)
 run/
