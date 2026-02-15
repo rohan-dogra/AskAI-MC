@@ -1,0 +1,25 @@
+# AIChat Configuration
+
+# Encryption seed for API key storage. CHANGE THIS to a unique random string.
+# If you change this after players have set keys, their keys will become unreadable
+# and they will need to set them again.
+encryption:
+  seed: "CHANGE-ME-use-a-long-random-string-here"
+
+# Rate limiting per player
+rate-limit:
+  requests: 10
+  window-seconds: 60
+
+# Message limits
+max-message-length: 2000
+max-response-tokens: 1024
+
+# Default system prompt prepended to all conversations
+system-prompt: "You are a helpful assistant in a Minecraft server. Keep responses concise and relevant"
+
+# Which providers are enabled (players can only use these)
+allowed-providers:
+  - openai
+  - anthropic
+  - gemini

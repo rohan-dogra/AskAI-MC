@@ -1,0 +1,20 @@
+#Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+#IDE
+.idea/
+*.iml
+.vscode/
+.project
+.classpath
+.settings/
+
+.DS_Store
+Thumbs.db
+
+#runtime data (generated on server)
+plugins/
+*.db
+.salt

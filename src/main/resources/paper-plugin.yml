@@ -1,0 +1,5 @@
+name: AIChat
+version: "${version}"
+main: com.aichat.AIChat
+description: "${description}"
+api-version: "1.21.11"
