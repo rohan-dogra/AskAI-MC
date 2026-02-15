@@ -36,14 +36,17 @@ public final class ChatCommand {
     public void register(Commands commands) {
         commands.register(
                 Commands.literal("chat")
+                        .requires(src -> src.getSender().hasPermission("aichat.use"))
                         // /chat setkey <provider> <key>
                         .then(Commands.literal("setkey")
+                                .requires(src -> src.getSender().hasPermission("aichat.setkey"))
                                 .then(Commands.argument("provider", StringArgumentType.word())
                                         .suggests(this::suggestProviders)
                                         .then(Commands.argument("key", StringArgumentType.greedyString())
                                                 .executes(this::handleSetKey))))
                         // /chat setmodel <provider> <model>
                         .then(Commands.literal("setmodel")
+                                .requires(src -> src.getSender().hasPermission("aichat.setkey"))
                                 .then(Commands.argument("provider", StringArgumentType.word())
                                         .suggests(this::suggestProviders)
                                         .then(Commands.argument("model", StringArgumentType.word())
@@ -51,6 +54,7 @@ public final class ChatCommand {
                                                 .executes(this::handleSetModel))))
                         // /chat provider <provider>
                         .then(Commands.literal("provider")
+                                .requires(src -> src.getSender().hasPermission("aichat.setkey"))
                                 .then(Commands.argument("provider", StringArgumentType.word())
                                         .suggests(this::suggestProviders)
                                         .executes(this::handleSetProvider)))

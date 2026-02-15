@@ -3,3 +3,14 @@ version: "${version}"
 main: com.aichat.AIChat
 description: "${description}"
 api-version: "1.21.11"
+
+permissions:
+  aichat.use:
+    description: "Send messages to AI providers with /chat"
+    default: true
+  aichat.setkey:
+    description: "Manage API keys with /chat setkey"
+    default: true
+  aichat.admin:
+    description: "Admin commands (reload, view stats)"
+    default: op
