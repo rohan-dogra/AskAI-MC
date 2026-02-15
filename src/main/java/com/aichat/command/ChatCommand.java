@@ -16,16 +16,13 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-@SuppressWarnings("UnstableApiUsage")
 public final class ChatCommand {
     private final AIChat plugin;
 
@@ -139,9 +136,7 @@ public final class ChatCommand {
                         ? cause.getMessage()
                         : "Request failed: " + sanitize(cause.getMessage());
                 plugin.getLogger().warning("AI request failed for " + player.getName() + ": " + sanitize(cause.getMessage()));
-                Throwable finalCause = cause;
-                runSync(() -> player.sendMessage(TextFormatter.error(
-                        finalCause instanceof AIProviderException ? finalCause.getMessage() : "Request failed: " + sanitize(finalCause.getMessage()))));
+                runSync(() -> player.sendMessage(TextFormatter.error(msg)));
             }
         });
 
