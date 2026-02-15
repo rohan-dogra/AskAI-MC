@@ -174,13 +174,8 @@ public final class ChatCommand {
                 String encrypted = plugin.getKeyEncryptor().encrypt(key);
                 plugin.getSettingsRepo().setEncryptedKey(player.getUniqueId(), provider, encrypted);
 
-                runSync(() -> {
-                    player.sendMessage(TextFormatter.success(
-                            "API key for " + provider.displayName() + " saved securely."));
-                    //push key off screen
-                    for (int i = 0; i < 20; i++) player.sendMessage(Component.empty());
-                    player.sendMessage(TextFormatter.info("(Chat cleared for security)"));
-                });
+                runSync(() -> player.sendMessage(TextFormatter.success(
+                        provider.displayName() + " API key set.")));
             } catch (Exception e) {
                 String safeMsg = sanitize(e.getMessage());
                 plugin.getLogger().warning("Failed to save key for " + player.getName() + ": " + safeMsg);
