@@ -1,19 +1,22 @@
 # AskAI
 
+![GitHub Release](https://img.shields.io/github/v/release/rohan-dogra/AskAI-MC?label=version) ![bStats Servers](https://img.shields.io/bstats/servers/29560)
+
 A PaperMC plugin that lets players chat with AI providers in-game. Supports OpenAI, Anthropic, and Google Gemini.
 
 On 'player' mode, each player picks a provider and model, sends messages with `/chat`, and gets private AI responses. On 'server' mode, the server sets a single API key and model for all players.
+
+## Note
+
+This plugin is not meant for long conversations. It operates as a single shot Q&A format. Each message is sent with fresh context.
 
 ## Requirements
 
 - Paper or Purpur 1.20.6+
 
-## Installation
+## Configuration
 
-1. Download the latest JAR from [Releases](https://github.com/rohan-dogra/AskAI-MC/releases)
-2. Drop it into your server's `plugins/` folder
-3. Restart the server
-4. Edit `plugins/AskAI/config.yml` — at minimum, change the `encryption.seed` to a random string
+1. Edit `plugins/AskAI/config.yml`, change the `encryption.seed` to a random string
 
 ## Commands
 
