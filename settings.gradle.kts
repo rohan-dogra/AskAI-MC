@@ -1,1 +1,1 @@
-rootProject.name = "aichat"
+rootProject.name = "askai"

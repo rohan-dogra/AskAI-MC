@@ -5,7 +5,9 @@ plugins {
 }
 
 group = property("group") as String
-version = property("version") as String
+version = providers.exec {
+    commandLine("git", "describe", "--tags", "--abbrev=0")
+}.standardOutput.asText.map { it.trim().removePrefix("v") }.getOrElse("dev")
 description = "Chat with AI providers in Minecraft"
 
 java {
