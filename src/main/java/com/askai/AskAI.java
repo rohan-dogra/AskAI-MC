@@ -102,6 +102,15 @@ public final class AskAI extends JavaPlugin implements Listener {
         rateLimiter.cleanup(event.getPlayer().getUniqueId());
     }
 
+    public void reloadPluginConfig() {
+        reloadConfig();
+        this.pluginConfig = new PluginConfig(getConfig());
+        this.rateLimiter = new RateLimiter(
+                pluginConfig.getRateLimitRequests(),
+                pluginConfig.getRateLimitWindowSeconds()
+        );
+    }
+
     //component getters
 
     public PluginConfig getPluginConfig() {
