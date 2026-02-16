@@ -61,6 +61,10 @@ public final class ChatCommand {
                         // /chat status
                         .then(Commands.literal("status")
                                 .executes(this::handleStatus))
+                        // /chat reload
+                        .then(Commands.literal("reload")
+                                .requires(src -> src.getSender().hasPermission("askai.admin"))
+                                .executes(this::handleReload))
                         // /chat <message> (greedy catch all, should be last here)
                         .then(Commands.argument("message", StringArgumentType.greedyString())
                                 .executes(this::handleSend))
@@ -293,6 +297,13 @@ public final class ChatCommand {
             }
         });
 
+        return Command.SINGLE_SUCCESS;
+    }
+
+    private int handleReload(CommandContext<CommandSourceStack> ctx) {
+        CommandSender sender = ctx.getSource().getSender();
+        plugin.reloadPluginConfig();
+        sender.sendMessage(TextFormatter.success("Config reloaded."));
         return Command.SINGLE_SUCCESS;
     }
 
