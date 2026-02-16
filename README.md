@@ -27,6 +27,7 @@ This plugin is not meant for long conversations. It operates as a single shot Q&
 | `/chat setmodel <provider> <model>` | Set which model to use for a provider |
 | `/chat provider <provider>` | Switch your active provider |
 | `/chat status` | Show your current config and key status |
+| `/chat reload` | Reload config.yml without restarting (admin only) |
 
 Providers: `openai`, `anthropic`, `gemini`
 
@@ -36,7 +37,7 @@ Providers: `openai`, `anthropic`, `gemini`
 |-----------|---------|-------------|
 | `askai.use` | All players | Use `/chat` and `/chat status` |
 | `askai.setkey` | All players | Manage keys, models, and provider selection |
-| `askai.admin` | OP only | Set server-wide API keys in server-key mode |
+| `askai.admin` | OP only | Set server-wide API keys in server-key mode, reload config |
 
 ## Key Modes
 
@@ -48,7 +49,7 @@ Each player sets and manages their own API keys. This is the default behavior.
 
 One set of API keys is shared by all players, managed by admins. Players can still choose their own provider and model, but the API key comes from the server.
 
-To enable, set `key-mode: "server"` in `config.yml` and restart. Only players with `askai.admin` permission can set keys in this mode.
+To enable, set `key-mode: "server"` in `config.yml` and run `/chat reload`. Only players with `askai.admin` permission can set keys in this mode.
 
 ## Configuration
 
