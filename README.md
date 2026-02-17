@@ -1,6 +1,6 @@
 # AskAI
 
-![GitHub Release](https://img.shields.io/github/v/release/rohan-dogra/AskAI-MC?label=version) ![bStats Servers](https://img.shields.io/bstats/servers/29560)
+![GitHub Release](https://img.shields.io/github/v/release/rohan-dogra/AskAI-MC?label=version) ![bStats Servers](https://img.shields.io/bstats/servers/29560) [![Modrinth Downloads](https://img.shields.io/modrinth/dt/8IbLnSTj?logo=modrinth)](https://modrinth.com/plugin/askai)
 
 A PaperMC plugin that lets players chat with AI models in-game. Supports OpenAI, Anthropic, and Google Gemini.
 
